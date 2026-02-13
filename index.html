@@ -1,37 +1,176 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
   <meta charset="UTF-8">
-  <title>My Second Brain</title>
+  <title>Insights</title>
   <link rel="stylesheet" href="style.css">
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 
-  <body>
-  <div class="container">
+<body>
+<div class="container">
 
-   <aside class="sidebar">
-  <h2>Second Brain</h2>
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <h2>Second Brain</h2>
 
-  <a href="#">Cybersecurity</a>
-  <a href="#">Artificial Intelligence</a>
-  <a href="#">Computer Science</a>
-  <a href="#">Psychology</a>
+    <a href="#" onclick="loadPage('cyber')">
+      <i data-lucide="shield"></i> Cybersecurity
+    </a>
 
-  <hr>
+    <a href="#" onclick="loadPage('ai')">
+      <i data-lucide="cpu"></i> Artificial Intelligence
+    </a>
 
-  <a href="#">Weekly Notes</a>
-  <a href="#">Resources</a>
-</aside>
+    <a href="#" onclick="loadPage('cs')">
+      <i data-lucide="code"></i> Computer Science
+    </a>
 
-    <main class="content">
+    <a href="#" onclick="loadPage('psych')">
+      <i data-lucide="brain"></i> Psychology
+    </a>
+
+    <a href="#" onclick="loadPage('philo')">
+      <i data-lucide="book-open"></i> Philosophy
+    </a>
+
+    <hr>
+
+    <a href="#" onclick="loadPage('resources')">
+      <i data-lucide="library"></i> Resources
+    </a>
+
+    <a href="#" onclick="loadPage('help')">
+      <i data-lucide="life-buoy"></i> Help
+    </a>
+  </aside>
+
+
+  <!-- MAIN -->
+  <main class="content" id="contentArea">
+
+    <div class="theme-toggle-container">
+      <div class="theme-toggle" id="themeToggle"></div>
+    </div>
+
+    <div class="hero">
       <h1>My Second Brain</h1>
       <p>
         A personal digital knowledge base where I organize and refine
         what I learn in cybersecurity, computer science, and beyond.
       </p>
-    </main>
 
+      <div class="topic-grid">
+
+        <div class="topic-card" onclick="loadPage('cyber')">
+          <i data-lucide="shield"></i>
+          <h3>Cybersecurity</h3>
+          <p>Security, cryptography and defense systems.</p>
+        </div>
+
+        <div class="topic-card" onclick="loadPage('ai')">
+          <i data-lucide="cpu"></i>
+          <h3>Artificial Intelligence</h3>
+          <p>Machine learning and neural systems.</p>
+        </div>
+
+        <div class="topic-card" onclick="loadPage('cs')">
+          <i data-lucide="code"></i>
+          <h3>Computer Science</h3>
+          <p>Algorithms, systems and architecture.</p>
+        </div>
+
+        <div class="topic-card" onclick="loadPage('psych')">
+          <i data-lucide="brain"></i>
+          <h3>Psychology</h3>
+          <p>Cognition and behavioral science.</p>
+        </div>
+
+        <div class="topic-card" onclick="loadPage('philo')">
+          <i data-lucide="book-open"></i>
+          <h3>Philosophy</h3>
+          <p>Logic, reasoning and critical thinking.</p>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+  const toggle = document.getElementById("themeToggle");
+
+  function setTheme(theme) {
+    if (theme === "dark") {
+      document.body.classList.add("dark");
+      toggle.classList.add("active");
+    } else {
+      document.body.classList.remove("dark");
+      toggle.classList.remove("active");
+    }
+    localStorage.setItem("theme", theme);
+  }
+
+  toggle.addEventListener("click", () => {
+    if (document.body.classList.contains("dark")) {
+      setTheme("light");
+    } else {
+      setTheme("dark");
+    }
+  });
+
+  window.onload = function () {
+    const savedTheme = localStorage.getItem("theme") || "light";
+    setTheme(savedTheme);
+    lucide.createIcons();
+  };
+
+  function loadPage(section) {
+    const content = document.getElementById("contentArea");
+
+    const pages = {
+      cyber: `
+  <div class="section-page">
+    <h1 class="section-title">Cybersecurity</h1>
+    <p class="section-subtitle">
+      Security, cryptography and defense systems.
+    </p>
+
+    <div class="subtopic-grid">
+
+      <div class="subtopic-card">
+        <h3>Hacking</h3>
+        <p>Ethical hacking and penetration testing.</p>
+      </div>
+
+      <div class="subtopic-card">
+        <h3>Digital Forensics</h3>
+        <p>Investigation and incident response.</p>
+      </div>
+
+      <div class="subtopic-card">
+        <h3>Threat Intelligence</h3>
+        <p>Attack analysis and monitoring.</p>
+      </div>
+
+    </div>
   </div>
-</body>
+`,
+      ai: `<h1>Artificial Intelligence</h1><p>Machine learning and AI research.</p>`,
+      cs: `<h1>Computer Science</h1><p>Algorithms and systems design.</p>`,
+      psych: `<h1>Psychology</h1><p>Cognitive science and behavior.</p>`,
+      philo: `<h1>Philosophy</h1><p>Logic and epistemology.</p>`,
+      resources: `<h1>Resources</h1><p>Books, tools and learning references.</p>`,
+      help: `<h1>Help</h1><p>How to navigate this knowledge base.</p>`
+    };
 
+    content.innerHTML = pages[section];
+  }
+</script>
+
+</body>
 </html>
+
