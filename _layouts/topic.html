@@ -1,1 +1,23 @@
+---
+layout: default
+---
 
+<div class="section-page">
+  <h1 class="section-title">{{ page.title }}</h1>
+  <p class="section-subtitle">{{ page.description }}</p>
+
+  <div class="subtopic-grid">
+    {% for note in site.notes %}
+      {% if note.topic == page.title %}
+        <a href="{{ note.url }}" class="subtopic-card">
+          <h3>{{ note.title }}</h3>
+          <p>{{ note.description }}</p>
+        </a>
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>
+
+<script>
+  lucide.createIcons();
+</script>
